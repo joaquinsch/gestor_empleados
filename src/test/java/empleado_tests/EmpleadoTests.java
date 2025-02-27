@@ -81,4 +81,10 @@ public class EmpleadoTests {
         Assertions.assertTrue(violations.isEmpty());
     }
 
+    @Test
+    public void deberiaCrearseSiNombreTieneAcentos(){
+        Empleado empleado = new Empleado(1L, "joaquín ernesto", "perez", 1000.0, "administrativo");
+        Set<ConstraintViolation<Empleado>> violations = validator.validate(empleado);
+        Assertions.assertTrue(violations.isEmpty(), "no se esperaban violaciones");
+    }
 }

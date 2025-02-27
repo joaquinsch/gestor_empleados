@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Empleado {
 
     private Long id_empleado;
-    @Pattern(message = "El nombre es inválido", regexp = "^[a-zA-Z]+( [a-zA-Z]+)*$", flags = Pattern.Flag.CASE_INSENSITIVE)
+    @Pattern(message = "El nombre es inválido", regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜ]+( [a-zA-ZáéíóúÁÉÍÓÚüÜ]+)*$", flags = Pattern.Flag.CASE_INSENSITIVE)
 
     private String nombre;
     private String apellido;
