@@ -105,4 +105,12 @@ public class EmpleadoTests {
         Assertions.assertFalse(violations.isEmpty(), "Se esperaban violaciones de validación");
         Assertions.assertEquals("El apellido es inválido", violations.iterator().next().getMessage());
     }
+
+    @Test
+    public void elPuestoSoloDebeContenerLetras(){
+        violations = validator.validate(empleado);
+        Assertions.assertEquals("administrativo", empleado.getPuesto());
+        Assertions.assertTrue(violations.isEmpty(), "no se esperaban violaciones de validación");
+
+    }
 }
