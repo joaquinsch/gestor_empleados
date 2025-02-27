@@ -121,4 +121,13 @@ public class EmpleadoTests {
         Assertions.assertFalse(violations.isEmpty(), "se esperaban errores de validacion");
         Assertions.assertEquals("El puesto es inválido", violations.iterator().next().getMessage());
     }
+
+    @Test
+    public void nombreConEspaciosAlFinalNoDebeSerValido(){
+        Empleado em1 = new Empleado(1L, "Joaquín Ernesto  ", "Pérez", 1000.0, "administrativo");
+
+        violations = validator.validate(em1);
+        Assertions.assertFalse(violations.isEmpty(), "se esperaba error de validacion en el nombre");
+        Assertions.assertEquals("El nombre es inválido", violations.iterator().next().getMessage());
+    }
 }
