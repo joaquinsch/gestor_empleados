@@ -17,6 +17,7 @@ public class Empleado {
     @Pattern(message = "El apellido es inválido", regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜ]+( [a-zA-ZáéíóúÁÉÍÓÚüÜ]+)*$", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String apellido;
     private Double sueldo;
+    @Pattern(message = "El puesto es inválido", regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜ]+( [a-zA-ZáéíóúÁÉÍÓÚüÜ]+)*$", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String puesto;
 
 

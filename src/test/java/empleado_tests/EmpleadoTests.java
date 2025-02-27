@@ -113,4 +113,12 @@ public class EmpleadoTests {
         Assertions.assertTrue(violations.isEmpty(), "no se esperaban violaciones de validación");
 
     }
+
+    @Test
+    public void elPuestoNoDeberiaContenerNumeros(){
+        Empleado em1 = new Empleado(1L, "Joaquín Ernesto", "Pérez", 1000.0, "administrativo número 1");
+        violations = validator.validate(em1);
+        Assertions.assertFalse(violations.isEmpty(), "se esperaban errores de validacion");
+        Assertions.assertEquals("El puesto es inválido", violations.iterator().next().getMessage());
+    }
 }
