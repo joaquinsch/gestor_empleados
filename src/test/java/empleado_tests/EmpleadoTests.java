@@ -97,4 +97,12 @@ public class EmpleadoTests {
         Assertions.assertTrue(violations.isEmpty(), "No se esperaban violaciones de validación");
         Assertions.assertEquals("Pérez", em.getApellido());
     }
+
+    @Test
+    public void deberiaDarErrorSiCreaApellidoConNumeros(){
+        Empleado em1 = new Empleado(1L, "Joaquín Ernesto", "123 Pérez 1", 1000.0, "administrativo");
+        violations = validator.validate(em1);
+        Assertions.assertFalse(violations.isEmpty(), "Se esperaban violaciones de validación");
+        Assertions.assertEquals("El apellido es inválido", violations.iterator().next().getMessage());
+    }
 }
