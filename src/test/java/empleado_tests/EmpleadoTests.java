@@ -71,10 +71,14 @@ public class EmpleadoTests {
         Empleado empleado = new Empleado(1L, "joaquin", "perez", 1000.0, "administrativo");
         Set<ConstraintViolation<Empleado>> violations = validator.validate(empleado);
 
-        if (!violations.isEmpty()) {
-            violations.forEach(violation -> System.out.println(violation.getMessage()));
-        }
-
         Assertions.assertTrue(violations.isEmpty(), "No se esperaba ninguna violación de validación");
     }
+
+    @Test
+    public void deberiaCrearseSiElNombreTieneEspacios(){
+        Empleado empleado = new Empleado(1L, "joaquin ernesto", "perez", 1000.0, "administrativo");
+        Set<ConstraintViolation<Empleado>> violations = validator.validate(empleado);
+        Assertions.assertTrue(violations.isEmpty());
+    }
+
 }
