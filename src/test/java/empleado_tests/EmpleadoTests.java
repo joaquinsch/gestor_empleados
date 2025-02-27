@@ -89,4 +89,12 @@ public class EmpleadoTests {
         violations = validator.validate(empleado);
         Assertions.assertTrue(violations.isEmpty(), "no se esperaban violaciones");
     }
+
+    @Test
+    public void deberiaCrearseSiApellidoTieneAcentosYMayusculas(){
+        Empleado em = new Empleado(1L, "Joaquín Ernesto", "Pérez", 1000.0, "administrativo");
+        violations = validator.validate(em);
+        Assertions.assertTrue(violations.isEmpty(), "No se esperaban violaciones de validación");
+        Assertions.assertEquals("Pérez", em.getApellido());
+    }
 }
