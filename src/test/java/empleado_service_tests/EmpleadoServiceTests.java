@@ -90,5 +90,16 @@ public class EmpleadoServiceTests {
         Mockito.verify(empleadoRepository).deleteById(empleado.getId_empleado());
     }
 
+    @Test
+    public void deberiaDarErrorSiIntentaEliminarEmpleadoInexistente(){
+        Mockito.when(empleadoRepository.findById(2L)).thenReturn(Optional.empty());
+
+        NoSuchElementException e = Assertions.assertThrows(
+                NoSuchElementException.class,
+                () -> empleadoService.eliminarEmpleado(2L)
+        );
+
+        Assertions.assertTrue(e.getMessage().contains("No se encontró el empleado con el id " + 2L));
+    }
 
 }
