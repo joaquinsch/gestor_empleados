@@ -14,4 +14,8 @@ public class EmpleadoService {
     public Empleado guardarEmpleado(Empleado empleado){
         return empleadoRepository.save(empleado);
     }
+
+    public Empleado buscarEmpleado(Long id_empleado) {
+        return empleadoRepository.findById(id_empleado).orElse(null);
+    }
 }

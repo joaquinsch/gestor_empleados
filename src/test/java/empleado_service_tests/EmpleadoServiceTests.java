@@ -2,6 +2,7 @@ package empleado_service_tests;
 
 
 import model.Empleado;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +13,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import repository.EmpleadoRepository;
 import service.EmpleadoService;
+
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class EmpleadoServiceTests {
@@ -39,5 +42,14 @@ public class EmpleadoServiceTests {
         Mockito.when(empleadoRepository.save(empleado)).thenReturn(empleado);
         empleadoService.guardarEmpleado(empleado);
 
+    }
+
+    @Test
+    public void deberiaBuscarElEmpleadoPorIdSiExiste(){
+        Mockito.when(empleadoRepository.findById(empleado.getId_empleado())).thenReturn(Optional.of(empleado));
+        Empleado empleadoBuscado = empleadoService.buscarEmpleado(empleado.getId_empleado());
+        Assertions.assertNotNull(empleadoBuscado);
+        Assertions.assertEquals(1L, empleadoBuscado.getId_empleado());
+        Assertions.assertEquals("joaquín ernesto", empleadoBuscado.getNombre());
     }
 }
