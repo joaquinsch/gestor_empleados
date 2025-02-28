@@ -65,4 +65,20 @@ public class EmpleadoServiceTests {
         Assertions.assertTrue(e.getMessage().contains("No se encontró el empleado con el id " + 2L));
 
     }
+
+    @Test
+    public void deberiaEditarElEmpleado(){
+        Empleado nuevoEmpleado = new Empleado(2L, "carlos", "pérez", 1500.0, "dev");
+
+        Mockito.when(empleadoRepository.findById(empleado.getId_empleado())).thenReturn(Optional.of(empleado));
+        Mockito.when(empleadoRepository.save(Mockito.any(Empleado.class))).thenReturn(nuevoEmpleado);
+        Empleado empleadoEditado = empleadoService.editarEmpleado(empleado.getId_empleado(), nuevoEmpleado);
+
+        Assertions.assertEquals(2L, empleadoEditado.getId_empleado());
+        Assertions.assertEquals("carlos", empleadoEditado.getNombre());
+        Assertions.assertEquals("pérez", empleadoEditado.getApellido());
+        Assertions.assertEquals(1500.0, empleadoEditado.getSueldo());
+        Assertions.assertEquals("dev", empleadoEditado.getPuesto());
+
+    }
 }

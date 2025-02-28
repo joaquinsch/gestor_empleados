@@ -21,4 +21,15 @@ public class EmpleadoService {
         return empleadoRepository.findById(id_empleado).orElseThrow(() ->
                 new NoSuchElementException("No se encontró el empleado con el id " + id_empleado));
     }
+
+    public Empleado editarEmpleado(Long id_empleado, Empleado nuevoEmpleado) {
+        buscarEmpleado(id_empleado);
+        Empleado empleadoEditado = new Empleado();
+        empleadoEditado.setId_empleado(nuevoEmpleado.getId_empleado());
+        empleadoEditado.setNombre(nuevoEmpleado.getNombre());
+        empleadoEditado.setApellido(nuevoEmpleado.getApellido());
+        empleadoEditado.setSueldo(nuevoEmpleado.getSueldo());
+        empleadoEditado.setPuesto(nuevoEmpleado.getPuesto());
+        return empleadoRepository.save(empleadoEditado);
+    }
 }
