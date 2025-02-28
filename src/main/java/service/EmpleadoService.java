@@ -32,4 +32,10 @@ public class EmpleadoService {
         empleadoEditado.setPuesto(nuevoEmpleado.getPuesto());
         return empleadoRepository.save(empleadoEditado);
     }
+
+
+    public void eliminarEmpleado(Long idEmpleado) {
+        buscarEmpleado(idEmpleado);
+        empleadoRepository.deleteById(idEmpleado);
+    }
 }

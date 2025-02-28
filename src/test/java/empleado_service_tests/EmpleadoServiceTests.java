@@ -81,4 +81,14 @@ public class EmpleadoServiceTests {
         Assertions.assertEquals("dev", empleadoEditado.getPuesto());
 
     }
+
+    @Test
+    public void deberiaEliminarEmpleadoSiExiste(){
+
+        Mockito.when(empleadoRepository.findById(empleado.getId_empleado())).thenReturn(Optional.of(empleado));
+        empleadoService.eliminarEmpleado(empleado.getId_empleado());
+        Mockito.verify(empleadoRepository).deleteById(empleado.getId_empleado());
+    }
+
+
 }
