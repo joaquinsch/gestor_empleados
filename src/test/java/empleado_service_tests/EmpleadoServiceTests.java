@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import repository.EmpleadoRepository;
 import service.EmpleadoService;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -51,5 +52,17 @@ public class EmpleadoServiceTests {
         Assertions.assertNotNull(empleadoBuscado);
         Assertions.assertEquals(1L, empleadoBuscado.getId_empleado());
         Assertions.assertEquals("joaquín ernesto", empleadoBuscado.getNombre());
+    }
+
+    @Test
+    public void deberiaDevolverErrorSiEmpleadoNoSeEncuentra(){
+        Mockito.when(empleadoRepository.findById(2L)).thenReturn(Optional.empty());
+        NoSuchElementException e = Assertions.assertThrows(
+                NoSuchElementException.class,
+                () -> empleadoService.buscarEmpleado(2L)
+        );
+
+        Assertions.assertTrue(e.getMessage().contains("No se encontró el empleado con el id " + 2L));
+
     }
 }
