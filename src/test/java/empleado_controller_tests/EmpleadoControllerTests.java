@@ -28,6 +28,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import service.EmpleadoService;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -58,6 +61,24 @@ public class EmpleadoControllerTests {
         empleado.setApellido("gomez");
         empleado.setSueldo(1000.0);
         empleado.setPuesto("dev");
+    }
+
+    @Test
+    public void deberiaListarTodos() throws Exception {
+        List<Empleado> empleados = new ArrayList<>();
+        empleados.add(new Empleado(1L, "asd", "asd", 1000.0, "asd"));
+        empleados.add(new Empleado(2L, "aa", "bb", 1500.0, "qcyo" ));
+        Mockito.when(empleadoService.listarEmpleados()).thenReturn(empleados);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/empleados")
+                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id_empleado").value(1L))
+                .andExpect(jsonPath("$[0].nombre").value("asd"))
+                .andExpect(jsonPath("$[1].id_empleado").value(2L))
+                .andExpect(jsonPath("$[1].nombre").value("aa"));
+        Mockito.verify(empleadoService, Mockito.times(1)).listarEmpleados();
     }
 
     @Test
