@@ -11,6 +11,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import repository.EmpleadoRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -32,6 +34,16 @@ public class RepositoryEmpleadoTests {
         empleado.setSueldo(1000.0);
         empleado.setPuesto("administrativo");
 
+    }
+
+    @Test
+    public void deberiaListarTodos(){
+        List<Empleado> empleados = new ArrayList<>();
+        empleados.add(new Empleado(1L, "asd", "asd", 1000.0, "asd"));
+        Mockito.when(empleadoRepository.findAll()).thenReturn(empleados);
+        List<Empleado> listaEmpleados = empleadoRepository.findAll();
+        Mockito.verify(empleadoRepository, Mockito.times(1)).findAll();
+        Assertions.assertEquals("asd",listaEmpleados.get(0).getNombre());
     }
 
     @Test
