@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.EmpleadoRepository;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -37,5 +38,9 @@ public class EmpleadoService {
     public void eliminarEmpleado(Long idEmpleado) {
         buscarEmpleado(idEmpleado);
         empleadoRepository.deleteById(idEmpleado);
+    }
+
+    public List<Empleado> listarEmpleados() {
+        return empleadoRepository.findAll();
     }
 }

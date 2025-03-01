@@ -14,6 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import repository.EmpleadoRepository;
 import service.EmpleadoService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -38,6 +40,17 @@ public class EmpleadoServiceTests {
                 "administrativo");
 
     }
+    @Test
+    public void deberiaListarTodos(){
+        List<Empleado> empleados = new ArrayList<>();
+        empleados.add(new Empleado(1L, "asd", "asd", 1000.0, "asd"));
+        Mockito.when(empleadoRepository.findAll()).thenReturn(empleados);
+        List<Empleado> listaEmpleados = empleadoService.listarEmpleados();
+        Assertions.assertEquals("asd",listaEmpleados.get(0).getNombre());
+    }
+
+
+
     @Test
     public void deberiaGuardarEmpleado(){
         Mockito.when(empleadoRepository.save(empleado)).thenReturn(empleado);
