@@ -1,12 +1,12 @@
-package empleado_controller;
+package com.example.gestor_empleados.empleado_controller;
 
 import jakarta.validation.Valid;
-import model.Empleado;
+import com.example.gestor_empleados.model.Empleado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.EmpleadoService;
+import com.example.gestor_empleados.service.EmpleadoService;
 
 import java.util.List;
 
@@ -20,6 +20,7 @@ public class EmpleadoController {
 
     @GetMapping("/empleados")
     public ResponseEntity<List<Empleado>> listarEmpleados(){
+
         return new ResponseEntity<>(empleadoService.listarEmpleados(), HttpStatus.OK);
     }
 

@@ -1,10 +1,13 @@
 package empleado_controller_tests;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import empleado_controller.EmpleadoController;
+import com.example.gestor_empleados.exception.ApiExceptionHandler;
 
-import model.Empleado;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.gestor_empleados.empleado_controller.EmpleadoController;
+
+import com.example.gestor_empleados.model.Empleado;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +28,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import service.EmpleadoService;
+import com.example.gestor_empleados.service.EmpleadoService;
+
 
 
 import java.util.ArrayList;
@@ -52,7 +56,7 @@ public class EmpleadoControllerTests {
     public void setUp(){
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(empleadoController)
-               // .setControllerAdvice(new ApiExceptionHandler())esto se necesita para las excepciones personalizadas
+                .setControllerAdvice(new ApiExceptionHandler())//esto se necesita para las excepciones personalizadas
                 .build();
         objectMapper = new ObjectMapper();
         empleado = new Empleado();
@@ -95,6 +99,25 @@ public class EmpleadoControllerTests {
                 .andExpect(jsonPath("$.apellido").value("gomez"))
                 .andExpect(jsonPath("$.sueldo").value(1000.0))
                 .andExpect(jsonPath("$.puesto").value("dev"));
+    }
+
+    @Test
+    public void deberiaDarErrorSiIntentaCrearEmpleadoConNombreConNumeros() throws Exception {
+        Empleado empleadoMal = new Empleado();
+        empleadoMal.setId_empleado(2L);
+        empleadoMal.setNombre("maria123");
+        empleadoMal.setApellido("asd");
+        empleadoMal.setSueldo(1000.0);
+        empleadoMal.setPuesto("dev");
+
+       mockMvc.perform(
+                MockMvcRequestBuilders.post("/api/crear")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(empleadoMal)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.mensaje").value("El nombre es inválido")
+                );
+
     }
 
 }

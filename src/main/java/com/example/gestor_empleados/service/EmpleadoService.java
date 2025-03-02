@@ -1,9 +1,9 @@
-package service;
+package com.example.gestor_empleados.service;
 
-import model.Empleado;
+import com.example.gestor_empleados.model.Empleado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.EmpleadoRepository;
+import com.example.gestor_empleados.repository.EmpleadoRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;

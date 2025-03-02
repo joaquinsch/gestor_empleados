@@ -1,6 +1,6 @@
-package repository;
+package com.example.gestor_empleados.repository;
 
-import model.Empleado;
+import com.example.gestor_empleados.model.Empleado;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

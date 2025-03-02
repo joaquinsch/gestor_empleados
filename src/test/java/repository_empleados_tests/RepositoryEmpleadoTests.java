@@ -1,6 +1,6 @@
 package repository_empleados_tests;
 
-import model.Empleado;
+import com.example.gestor_empleados.model.Empleado;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import repository.EmpleadoRepository;
+import com.example.gestor_empleados.repository.EmpleadoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
