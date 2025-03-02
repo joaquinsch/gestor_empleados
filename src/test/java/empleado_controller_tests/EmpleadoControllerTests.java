@@ -134,4 +134,14 @@ public class EmpleadoControllerTests {
         Mockito.verify(empleadoService, Mockito.times(1)).buscarEmpleado(empleado.getId_empleado());
     }
 
+    @Test
+    public void deberiaDarErrorSiBuscaEmpleadoColocandoUnaLetra() throws Exception{
+        mockMvc.perform(get("/api/buscar/a")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(empleado)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.mensaje").value("El parámetro ingresado es inválido"));
+
+    }
+
 }
