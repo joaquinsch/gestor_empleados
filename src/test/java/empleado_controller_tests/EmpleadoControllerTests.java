@@ -34,6 +34,7 @@ import com.example.gestor_empleados.service.EmpleadoService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -141,6 +142,16 @@ public class EmpleadoControllerTests {
                         .content(objectMapper.writeValueAsString(empleado)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.mensaje").value("El parámetro ingresado es inválido"));
+
+    }
+
+    @Test
+    public void deberiaDarErrorSiNoSeEncuentraElEmpleadoBuscado() throws Exception {
+        Mockito.when(empleadoService.buscarEmpleado(7L)).thenThrow(new NoSuchElementException("No se encontró el empleado con el id " + 7));
+        mockMvc.perform(get("/api/buscar/7")
+                .contentType(MediaType.APPLICATION_JSON)
+              ).andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.mensaje").value("No se encontró el empleado con el id " + 7));
 
     }
 
