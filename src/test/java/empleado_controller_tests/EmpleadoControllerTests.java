@@ -36,8 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -59,7 +59,7 @@ public class EmpleadoControllerTests {
     public void setUp(){
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(empleadoController)
-                .setControllerAdvice(new ApiExceptionHandler())//esto se necesita para las excepciones personalizadas
+                .setControllerAdvice(new ApiExceptionHandler())//esto se necesita para las excepciones
                 .build();
         objectMapper = new ObjectMapper();
         empleado = new Empleado();
@@ -152,6 +152,23 @@ public class EmpleadoControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
               ).andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.mensaje").value("No se encontró el empleado con el id " + 7));
+
+    }
+
+    @Test
+    public void deberiaEditarUnEmpleado() throws Exception{
+        // USAR eq() CON equals() en la clase empleado para evitar lo del innecesary stubbing
+        Empleado nuevoEmpleado = new Empleado(1L, "juan","gomez",1000.0,"dev");
+        Mockito.when(empleadoService.editarEmpleado(eq(empleado.getId_empleado()), eq(nuevoEmpleado))).thenReturn(nuevoEmpleado);
+        mockMvc.perform(put("/api/editar/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(nuevoEmpleado)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id_empleado").value(1L))
+                .andExpect(jsonPath("$.nombre").value("juan"))
+                .andExpect(jsonPath("$.apellido").value("gomez"))
+                .andExpect(jsonPath("$.sueldo").value(1000.0))
+                .andExpect(jsonPath("$.puesto").value("dev"));
 
     }
 
