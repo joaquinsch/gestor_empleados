@@ -29,5 +29,10 @@ public class EmpleadoController {
         return new ResponseEntity<>(empleadoService.guardarEmpleado(empleado), HttpStatus.CREATED);
     }
 
+    @GetMapping("/buscar/{id_empleado}")
+    public ResponseEntity<Empleado> buscarEmpleado(@PathVariable Long id_empleado){
+        return new ResponseEntity<>(empleadoService.buscarEmpleado(id_empleado),HttpStatus.FOUND);
+    }
+
 
 }

@@ -35,6 +35,8 @@ import com.example.gestor_empleados.service.EmpleadoService;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -90,7 +92,7 @@ public class EmpleadoControllerTests {
 
         Mockito.when(empleadoService.guardarEmpleado(Mockito.any(Empleado.class))).thenReturn(empleado);
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/crear")
+                post("/api/crear")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(empleado)))
                 .andExpect(status().isCreated())
@@ -111,13 +113,25 @@ public class EmpleadoControllerTests {
         empleadoMal.setPuesto("dev");
 
        mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/crear")
+                post("/api/crear")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(empleadoMal)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.mensaje").value("El nombre es inválido")
                 );
 
+    }
+
+    @Test
+    public void deberiaDevolverElEmpleadoBuscado() throws Exception{
+        Mockito.when(empleadoService.buscarEmpleado(empleado.getId_empleado())).thenReturn(empleado);
+
+        mockMvc.perform(get("/api/buscar/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(empleado)))
+                .andExpect(status().isFound())
+                .andExpect(jsonPath("$.nombre").value("carlos"));
+        Mockito.verify(empleadoService, Mockito.times(1)).buscarEmpleado(empleado.getId_empleado());
     }
 
 }
