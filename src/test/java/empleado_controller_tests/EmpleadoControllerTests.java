@@ -130,7 +130,7 @@ public class EmpleadoControllerTests {
         mockMvc.perform(get("/api/buscar/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(empleado)))
-                .andExpect(status().isFound())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.nombre").value("carlos"));
         Mockito.verify(empleadoService, Mockito.times(1)).buscarEmpleado(empleado.getId_empleado());
     }

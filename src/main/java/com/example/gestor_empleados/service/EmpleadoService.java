@@ -24,20 +24,18 @@ public class EmpleadoService {
     }
 
     public Empleado editarEmpleado(Long id_empleado, Empleado nuevoEmpleado) {
-        buscarEmpleado(id_empleado);
-        Empleado empleadoEditado = new Empleado();
-        empleadoEditado.setId_empleado(nuevoEmpleado.getId_empleado());
-        empleadoEditado.setNombre(nuevoEmpleado.getNombre());
-        empleadoEditado.setApellido(nuevoEmpleado.getApellido());
-        empleadoEditado.setSueldo(nuevoEmpleado.getSueldo());
-        empleadoEditado.setPuesto(nuevoEmpleado.getPuesto());
-        return empleadoRepository.save(empleadoEditado);
+        Empleado buscado = buscarEmpleado(id_empleado);
+        buscado.setNombre(nuevoEmpleado.getNombre());
+        buscado.setApellido(nuevoEmpleado.getApellido());
+        buscado.setSueldo(nuevoEmpleado.getSueldo());
+        buscado.setPuesto(nuevoEmpleado.getPuesto());
+        return empleadoRepository.save(buscado);
     }
 
 
-    public void eliminarEmpleado(Long idEmpleado) {
-        buscarEmpleado(idEmpleado);
-        empleadoRepository.deleteById(idEmpleado);
+    public void eliminarEmpleado(Long id_empleado) {
+        buscarEmpleado(id_empleado);
+        empleadoRepository.deleteById(id_empleado);
     }
 
     public List<Empleado> listarEmpleados() {
