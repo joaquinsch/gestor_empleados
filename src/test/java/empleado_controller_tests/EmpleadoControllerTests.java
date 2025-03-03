@@ -183,4 +183,16 @@ public class EmpleadoControllerTests {
 
     }
 
+    @Test
+    public void deberiaDarErrorSiIntentaEliminarEmpleadoQueNoExiste() throws Exception{
+        Mockito.doThrow(new NoSuchElementException("No se encontró el empleado con el id " + 5)).when(empleadoService).eliminarEmpleado(5L);
+        mockMvc.perform(delete("/api/eliminar/5")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(empleado)))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.mensaje").value("No se encontró el empleado con el id " + 5));
+
+
+    }
+
 }
