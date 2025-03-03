@@ -135,4 +135,18 @@ public class EmpleadoTests {
         Assertions.assertTrue(violations.isEmpty(), "no es esperaban error de validacion");
         Assertions.assertEquals("Joaquín Ernesto", em1.getNombre());
     }
+
+    @Test
+    public void deberiaSerValidoUnApellidoConEspaciosAlPrincipioYAlFinalYDeberianEliminarse(){
+        Empleado em1 = new Empleado();
+        em1.setId_empleado(1L);
+        em1.setNombre("carlos");
+        em1.setApellido("    Pérez González ");
+        em1.setSueldo(1000.0);
+        em1.setPuesto("administrativo");
+
+        violations = validator.validate(em1);
+        Assertions.assertTrue(violations.isEmpty(), "no es esperaban error de validacion");
+        Assertions.assertEquals("Pérez González", em1.getApellido());
+    }
 }

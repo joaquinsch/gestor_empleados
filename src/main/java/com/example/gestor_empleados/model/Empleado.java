@@ -19,7 +19,7 @@ public class Empleado {
 
     @Pattern(message = "El nombre es inválido", regexp = "^\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜ]+(?:\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜ]*)*\\s*$", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String nombre;
-    @Pattern(message = "El apellido es inválido", regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜ]+( [a-zA-ZáéíóúÁÉÍÓÚüÜ]+)*$", flags = Pattern.Flag.CASE_INSENSITIVE)
+    @Pattern(message = "El apellido es inválido", regexp = "^\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜ]+(?:\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜ]*)*\\s*$", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String apellido;
     private Double sueldo;
     @Pattern(message = "El puesto es inválido", regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜ]+( [a-zA-ZáéíóúÁÉÍÓÚüÜ]+)*$", flags = Pattern.Flag.CASE_INSENSITIVE)
@@ -27,6 +27,10 @@ public class Empleado {
 
     public void setNombre(String nombre){
         this.nombre = nombre.trim();
+    }
+
+    public void setApellido(String apellido){
+        this.apellido = apellido.trim();
     }
 
     @Override
