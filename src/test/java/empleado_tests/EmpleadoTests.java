@@ -123,11 +123,16 @@ public class EmpleadoTests {
     }
 
     @Test
-    public void nombreConEspaciosAlFinalNoDebeSerValido(){
-        Empleado em1 = new Empleado(1L, "Joaquín Ernesto  ", "Pérez", 1000.0, "administrativo");
+    public void deberiaSerValidoUnNombreConEspaciosAlPrincipioYAlFinalYDeberianEliminarse(){
+        Empleado em1 = new Empleado();
+        em1.setId_empleado(1L);
+        em1.setNombre("Joaquín Ernesto   ");
+        em1.setApellido("Pérez");
+        em1.setSueldo(1000.0);
+        em1.setPuesto("administrativo");
 
         violations = validator.validate(em1);
-        Assertions.assertFalse(violations.isEmpty(), "se esperaba error de validacion en el nombre");
-        Assertions.assertEquals("El nombre es inválido", violations.iterator().next().getMessage());
+        Assertions.assertTrue(violations.isEmpty(), "no es esperaban error de validacion");
+        Assertions.assertEquals("Joaquín Ernesto", em1.getNombre());
     }
 }
