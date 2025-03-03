@@ -194,5 +194,16 @@ public class EmpleadoControllerTests {
 
 
     }
+    @Test
+    public void deberiaDarErrorSiIntentaEditarConNombreInvalido() throws Exception{
+        Empleado nuevoEmpleado = new Empleado(1L, "3juan123  ","gomez",1000.0,"dev");
+
+        mockMvc.perform(put("/api/editar/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(nuevoEmpleado)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.mensaje").value("El nombre es inválido"));
+
+    }
 
 }
