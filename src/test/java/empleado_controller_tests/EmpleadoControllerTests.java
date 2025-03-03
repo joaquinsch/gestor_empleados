@@ -172,4 +172,15 @@ public class EmpleadoControllerTests {
 
     }
 
+    @Test
+    public void deberiaEliminarUnEmpleadoPorId() throws Exception {
+        Mockito.doNothing().when(empleadoService).eliminarEmpleado(empleado.getId_empleado());
+        mockMvc.perform(delete("/api/eliminar/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(empleado))
+
+        ).andExpect(status().isNoContent());
+
+    }
+
 }
