@@ -206,4 +206,10 @@ public class EmpleadoControllerTests {
 
     }
 
+    @Test
+    public void deberiaDarErrorSiSeIngresaURLInexistente() throws Exception {
+        mockMvc.perform(get("/api"))
+                .andExpect(status().isNotFound());
+    }
+
 }
