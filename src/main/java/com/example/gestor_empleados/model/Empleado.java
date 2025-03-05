@@ -17,12 +17,12 @@ public class Empleado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_empleado;
 
-    @Pattern(message = "El nombre es inválido", regexp = "^\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜ]+(?:\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜ]*)*\\s*$", flags = Pattern.Flag.CASE_INSENSITIVE)
+    @Pattern(message = "El nombre es inválido", regexp = "^\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+(?:\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]*)*\\s*$", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String nombre;
-    @Pattern(message = "El apellido es inválido", regexp = "^\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜ]+(?:\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜ]*)*\\s*$", flags = Pattern.Flag.CASE_INSENSITIVE)
+    @Pattern(message = "El apellido es inválido", regexp = "^\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+(?:\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]*)*\\s*$", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String apellido;
     private Double sueldo;
-    @Pattern(message = "El puesto es inválido", regexp = "^\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜ]+(?:\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜ]*)*\\s*$", flags = Pattern.Flag.CASE_INSENSITIVE)
+    @Pattern(message = "El puesto es inválido", regexp = "^\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+(?:\\s*[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]*)*\\s*$", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String puesto;
 
     public void setNombre(String nombre){
