@@ -9,7 +9,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.example.gestor_empleados.repository.EmpleadoRepository;
 import com.example.gestor_empleados.service.EmpleadoService;
@@ -18,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+
 
 @ExtendWith(MockitoExtension.class)
 public class EmpleadoServiceTests {
@@ -32,12 +32,18 @@ public class EmpleadoServiceTests {
 
     @BeforeEach
     public void setUp(){
-        MockitoAnnotations.openMocks(this);
-        empleado = new Empleado(1L,
+        //MockitoAnnotations.openMocks(this);
+       /* empleado = new Empleado(1L,
                 "joaquín ernesto",
                 "perez",
                 1000.0,
-                "administrativo");
+                "administrativo");*/
+        empleado = new Empleado();
+        empleado.setId_empleado(1L);
+        empleado.setNombre("joaquín ernesto");
+        empleado.setApellido("perez");
+        empleado.setSueldo(1000.0);
+        empleado.setPuesto("administrativo");
 
     }
     @Test
@@ -69,6 +75,12 @@ public class EmpleadoServiceTests {
 
     @Test
     public void deberiaDevolverErrorSiEmpleadoNoSeEncuentra(){
+        Empleado emp = new Empleado();
+        emp.setId_empleado(3L);
+        emp.setNombre("jose");
+        emp.setApellido("perez");
+        emp.setSueldo(1000.0);
+        emp.setPuesto("admin");
         Mockito.when(empleadoRepository.findById(2L)).thenReturn(Optional.empty());
         NoSuchElementException e = Assertions.assertThrows(
                 NoSuchElementException.class,
@@ -99,6 +111,7 @@ public class EmpleadoServiceTests {
     public void deberiaEliminarEmpleadoSiExiste(){
 
         Mockito.when(empleadoRepository.findById(empleado.getId_empleado())).thenReturn(Optional.of(empleado));
+        Mockito.doNothing().when(empleadoRepository).deleteById(Mockito.anyLong());
         empleadoService.eliminarEmpleado(empleado.getId_empleado());
         Mockito.verify(empleadoRepository).deleteById(empleado.getId_empleado());
     }
