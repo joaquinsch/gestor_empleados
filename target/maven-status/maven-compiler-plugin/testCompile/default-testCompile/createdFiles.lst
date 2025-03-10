@@ -1,0 +1,5 @@
+empleado_service_tests\EmpleadoServiceTests.class
+repository_empleados_tests\RepositoryEmpleadoTests.class
+empleado_tests\EmpleadoTests.class
+empleado_controller_tests\EmpleadoControllerTests.class
+com\example\gestor_empleados\GestorEmpleadosApplicationTests.class
